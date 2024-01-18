@@ -1,0 +1,130 @@
+﻿@model List<AddProductTable>
+
+
+<!-- below three are datatable.net require link this are suffient to create datatable -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js" **important**></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" **important**></script>
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" **important** />
+<!-- datatable.net required link ends -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<div class="content-wrapper">
+    <!-- Delection message coming from Admin Delete method start here -->
+    @if (TempData["DeletionMessage"] != null)
+    {
+        <div id="successMessage" class="alert alert-success">
+            @TempData["DeletionMessage"]
+        </div>
+        <script>
+            setTimeout(function () {
+                $("#successMessage").fadeOut("slow");
+            }, 3000);
+        </script>
+    }
+    <!-- Delection message coming from Admin Delete method ends here -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Table: </span> Users</h4>
+
+        <!-- Basic Bootstrap Table -->
+        <div class="card">
+            @*<h5 class="card-header">Table Basic</h5>*@
+            <div class="table-responsive text-nowrap card-header">
+                <table class="table table-striped" id="example" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Product Type</th>
+                            <th>Product Image</th>
+                            <th>Vendor Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach (var productIndex in Model)
+                        {
+                            <tr>
+                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@productIndex.ProductName</strong></td>
+                                <td>@productIndex.ProductType</td>
+                                <td>
+                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                        <li data-bs-toggle="tooltip"
+                                            data-popup="tooltip-custom"
+                                            data-bs-placement="top"
+                                            class="avatar avatar-xs pull-up"
+                                            title="">
+                                            @{
+                                                var imageUrl = productIndex.MainImage;
+                                                var imagePath = string.IsNullOrEmpty(productIndex.MainImage)
+                                                ? "/ImagesFolder/ProfileIcon.png" : $"/ImagesFolder/{imageUrl}";
+                                            }
+                                            <img src="@imagePath" alt="Avatar" class="rounded-circle" />
+                                            @*<img src="~/ImagesFolder/@productIndex.ImageUrl" alt="Avatar" class="rounded-circle" />*@
+                                        </li>
+
+                                    </ul>
+                                </td>
+                                <td><span class="badge bg-label-primary me-1">@productIndex.VendorEmail</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item details" data-id="@productIndex.ProductId"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            <!-- model ends -->
+                                            <a class="dropdown-item" href="/Admin/DeleteProduct/@productIndex.ProductId"><i class="bx bx-trash me-1"></i> Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- Modal Starts -->
+
+                <div id="ProductModal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Product Details</h5>
+                            </div>
+                            <div class="modal-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Ends -->
+
+
+            </div>
+        </div>
+
+        <hr class="my-5" />
+
+    </div>
+
+    <div class="content-backdrop fade"></div>
+</div>
+<script>
+    $(function () {
+        $(".details").click(function () {
+            var $buttonClicked = $(this);
+            var Id = $buttonClicked.attr('data-id');
+
+            fetch(`/Admin/EditProduct?Id=${Id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(response => response.text())
+                .then(response => {
+                    $("#ProductModal").find(".modal-body").html(response);
+                    $("#ProductModal").modal('show');
+                }).catch(error => console.error(error));
+        });
+    });
+</script>

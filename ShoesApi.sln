@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesApi", "ShoesApi\ShoesApi.csproj", "{CF56BAB8-601C-4AAA-9E0D-B1002409D747}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{918B11D4-F6C9-4DDD-90C0-AB02B86714DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonModel", "CommonModel\CommonModel.csproj", "{C2D3DB20-1875-497B-B2CC-0020275B070E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF56BAB8-601C-4AAA-9E0D-B1002409D747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF56BAB8-601C-4AAA-9E0D-B1002409D747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF56BAB8-601C-4AAA-9E0D-B1002409D747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF56BAB8-601C-4AAA-9E0D-B1002409D747}.Release|Any CPU.Build.0 = Release|Any CPU
+		{918B11D4-F6C9-4DDD-90C0-AB02B86714DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{918B11D4-F6C9-4DDD-90C0-AB02B86714DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{918B11D4-F6C9-4DDD-90C0-AB02B86714DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{918B11D4-F6C9-4DDD-90C0-AB02B86714DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2D3DB20-1875-497B-B2CC-0020275B070E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2D3DB20-1875-497B-B2CC-0020275B070E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2D3DB20-1875-497B-B2CC-0020275B070E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2D3DB20-1875-497B-B2CC-0020275B070E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F6B6C64-304D-48B0-8EA1-C4FA9B3D9297}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,4 @@
+﻿//namespace ShoesApi.Models.ProductModel
+//{
+
+//}

@@ -1,0 +1,74 @@
+﻿<!-- Modal Starts -->
+
+<div class="mt-2">
+    <button type="submit" class="btn btn-primary me-2" id="RoleCreate" style="margin: 22px;margin-bottom: 0;margin-top: 0;">
+        Create Role
+    </button>
+</div>
+
+<div id="CreateRoleModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Role</h5>
+            </div>
+            <div class="modal-body">
+                <form id="formRole" enctype="multipart/form-data">
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Role Name</label>
+                            @*<input class="form-control" type="text" id="rolename" name="rolename" value="" autofocus="">*@
+
+                            <select id="rolename" class="select2 form-select" name="rolename">
+                                <option value="">Select</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Manager">Manager</option>
+                                <option value="User">User</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary" onclick="CreateRole()">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Ends -->
+
+<script>
+    // Open Modal
+    $("#RoleCreate").click(function () {
+        $("#CreateRoleModal").modal('show');
+    })
+
+    // Create Role
+    function CreateRole() {
+        // Prevent the default form submission
+        event.preventDefault();
+        var rolename = document.getElementById('rolename').value;
+
+        $.ajax({
+            url: '/Roles/Create',
+            type: 'POST',
+            data: { rolename: rolename },
+            success: function (response) {
+                // Handle the success response
+                console.log(response);
+                //$("#partialModal").find(".modal-body").html(response);
+                $("#CreateRoleModal").modal('hide');
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response
+                console.error(error);
+            }
+        });
+    }
+</script>

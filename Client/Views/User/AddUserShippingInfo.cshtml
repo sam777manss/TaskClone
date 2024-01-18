@@ -1,0 +1,176 @@
+﻿@using System.Security.Claims
+
+@*checking start*@
+
+<!-- Page Header Start -->
+@*<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Contact Us</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Contact</p>
+        </div>
+    </div>
+</div>*@
+<!-- Page Header End -->
+<!-- Contact Start -->
+@{
+    var name = User.FindFirst("http://schemas.myapp.com/claims/zipCode")?.Value; // fetch current user in cookie
+}
+<div class="container-fluid pt-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Update Your Info Here</span></h2>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col-lg-7 mb-5">
+            <div class="contact-form">
+                <div id="success"></div>
+                <form name="" id="UserInfoUpdate" novalidate="novalidate">
+                    <label for="UserName" class="d-flex align-items-center">
+                        <i class="fa fa-user text-primary mr-3"></i>
+                        <input type="text" class="form-control" name="UserName" id="UserName" value="@User.FindFirst(ClaimTypes.Name)?.Value" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name">
+                    </label>
+                    <label for="email" class="d-flex align-items-center">
+                        <i class="fa fa-envelope text-primary mr-3"></i>
+                        <input type="email" class="form-control" value="@User.FindFirst(ClaimTypes.Email)?.Value" name="Email" id="Email" placeholder="Your Email"
+                               required="required" data-validation-required-message="Please enter your email" />
+                        <p class="help-block text-danger"></p>
+                    </label>
+                    <label for="Address" class="d-flex align-items-center">
+                        <i class="fa fa-map-marker-alt text-primary mr-3"></i>
+                        <input type="text" class="form-control" id="Address" name="Address" value="@User.FindFirst(ClaimTypes.StreetAddress)?.Value" placeholder="Your Address" required="required" data-validation-required-message="Please enter your address">
+                    </label>
+                    <label for="PhoneNumber" class="d-flex align-items-center">
+                        <i class="fa fa-phone-alt text-primary mr-3"></i>
+                        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@User.FindFirst(ClaimTypes.MobilePhone)?.Value" placeholder="Your Phone Number" required="required" data-validation-required-message="Please enter your phone number">
+                    </label>
+                    <label for="Zip_Code" class="d-flex align-items-center">
+                        <i class="fa fa-map-marker-alt text-primary mr-3"></i>
+                        <input type="text" class="form-control" id="Zip_Code" name="Zip_Code" value="@User.FindFirst("http://schemas.myapp.com/claims/zipCode")?.Value" placeholder="Your Zip Code" required="required" data-validation-required-message="Please enter your zip code">
+                    </label>
+                    <label for="City" class="d-flex align-items-center">
+                        <i class="fa fa-flag text-primary mr-3"></i>
+                        <input type="text" class="form-control" value="@User.FindFirst("http://schemas.myapp.com/claims/city")?.Value" name="City" id="City" placeholder="Your City" required="required" data-validation-required-message="Please enter your city">
+                    </label>
+                    <label for="State" class="d-flex align-items-center">
+                        <i class="fa fa-flag text-primary mr-3"></i>
+                        <input type="text" class="form-control" value="@User.FindFirst(ClaimTypes.StateOrProvince)?.Value" name="State" id="State" placeholder="Your State" required="required" data-validation-required-message="Please enter your state">
+                    </label>
+                    <label for="Country" class="d-flex align-items-center">
+                        <i class="fa fa-flag text-primary mr-3"></i>
+                        <select class="custom-select" id="Country" name="Country">
+                            <option value="india" selected>India</option>
+                            <option value="Afghanistan">Albania</option>
+                            <option value="Albania">Albania</option>
+                            <option value="Algeria">Algeria</option>
+                        </select>
+                    </label>
+@*                    <div class="control-group">
+                        <input type="text" class="form-control" id="subject" placeholder="Subject"
+                               required="required" data-validation-required-message="Please enter a subject" />
+                        <p class="help-block text-danger"></p>
+                    </div>*@
+@*                    <div class="control-group">
+                        <textarea class="form-control" rows="6" id="message" placeholder="Message"
+                                  required="required"
+                                  data-validation-required-message="Please enter your message"></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>*@
+                    <div>
+                        <button class="btn btn-primary py-2 px-4" type="submit" onclick="UserInfoUpdate()" id="sendMessageButton">
+                            Save
+                            Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5 mb-5">
+            <h5 class="font-weight-semi-bold mb-3">Get In Touch</h5>
+            <p>Justo sed diam ut sed amet duo amet lorem amet stet sea ipsum, sed duo amet et. Est elitr dolor elitr erat sit sit. Dolor diam et erat clita ipsum justo sed.</p>
+            <div class="d-flex flex-column mb-3">
+                <h5 class="font-weight-semi-bold mb-3">Store 1</h5>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+            <div class="d-flex flex-column">
+                <h5 class="font-weight-semi-bold mb-3">Store 2</h5>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+@*checking ends*@
+
+<script>
+    function UserInfoUpdate() {
+        // Prevent the default form submission
+        event.preventDefault();
+        var msg = "";
+        // check if product image is uploaded or not
+        if (document.getElementById('UserName').value == "") {
+            msg = "Enter Name";
+        }
+        else if (document.getElementById("Email").value == "") {
+            msg = "Enter Email";
+        }
+        else if (document.getElementById("Address").value == "") {
+            msg = "Enter Address";
+        }
+        else if (document.getElementById("PhoneNumber").value == "") {
+            msg = "Enter Phone Number";
+        }
+        else if (document.getElementById("Zip_Code").value == "") {
+            msg = "Enter Zip Code";
+        }
+        else if (document.getElementById("State").value == "") {
+            msg = "Enter State";
+        }
+        if (msg !== "") {
+            iziToast.show({
+                theme: 'dark',
+                icon: 'icon-person',
+                title: 'Hey',
+                message: "Please " + msg,
+                position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
+                progressBarColor: 'rgb(0, 255, 184)',
+            });
+        }
+
+        else {
+            // Get the form element
+            var form = document.getElementById('UserInfoUpdate');
+            // Create a new FormData object
+            var formData = new FormData(form);    // Make an Ajax request
+            $.ajax({
+                url: '/User/UserInfoUpdate',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Handle the success response
+                    console.log(response);
+                    iziToast.success({
+                        title: 'OK',
+                        message: "Added Info",
+                    });
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error response
+                    console.error(error);
+                    iziToast.error({
+                        title: 'Error',
+                        message: error,
+                    });
+                }
+            });
+        }
+
+    }
+</script>

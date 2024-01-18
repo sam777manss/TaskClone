@@ -1,0 +1,107 @@
+﻿@model AddProductTable
+
+<form id="formAccountSettings" enctype="multipart/form-data">
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    <div class="d-flex align-items-start align-items-sm-center gap-4">
+        <img src="~/ImagesFolder/@Model.MainImage" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+        <div class="button-wrapper">
+            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                <span class="d-none d-sm-block">Upload new photo</span>
+                <i class="bx bx-upload d-block d-sm-none"></i>
+
+                <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" name="Files" multiple />
+
+                @*                @if (Model.imageUrl != null)
+                {
+                <input type="hidden" name="imageUrl" value="@Model.imageUrl" />
+                }*@
+
+            </label>
+            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                <i class="bx bx-reset d-block d-sm-none"></i>
+                <span class="d-none d-sm-block">Reset</span>
+            </button>
+
+            <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+        </div>
+    </div>
+    <input class="form-control" type="text" id="ProductId" name="ProductId" value="@Model.ProductId" autofocus="" style="display:none">
+
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <label for="ProductName" class="form-label">Product Name</label>
+            <input class="form-control" type="text" id="ProductName" name="ProductName" value="@Model.ProductName" autofocus="">
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="Price" class="form-label">Price</label>
+            <input class="form-control" type="text" name="Price" id="Price" value="@Model.Price">
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="email" class="form-label">E-mail</label>
+            <input class="form-control" type="text" id="VendorEmail" name="VendorEmail" value="@Model.VendorEmail" placeholder="john.doe@example.com">
+        </div>
+
+        <div class="mb-3 col-md-6">
+            <label class="form-label" for="ProductType">ProductType</label>
+            <input type="text" id="ProductType" name="ProductType" class="form-control" value="@Model.ProductType" placeholder="ProductType">
+        </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Close
+        </button>
+        <button type="submit" class="btn btn-primary" onclick="SaveEdits()">Save changes</button>
+    </div>
+</form>
+
+<script>
+    document.getElementById('upload').addEventListener('change', function (event) {
+        var selectedFile = event.target.files[0]; // Get the first selected file
+
+        if (selectedFile) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById('uploadedAvatar').src = e.target.result;
+            };
+
+            reader.readAsDataURL(selectedFile);
+        }
+    });
+
+    // validation iziToast start + post ajax
+    try {
+        function SaveEdits() {
+            // Prevent the default form submission
+            event.preventDefault();
+            // Get the form element
+            var form = document.getElementById('formAccountSettings');
+            var formData = new FormData(form);
+
+            // Make an Ajax request
+            $.ajax({
+                url: '/Admin/UpdateProduct',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Handle the success response
+                    console.log(response);
+                    $("#ProductModal").find(".modal-body").html(response);
+                    $("#ProductModal").modal('show');
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error response
+                    console.error(error);
+                }
+            });
+        }
+    }
+    catch (err) {
+        console.log(err.message);
+    }
+        // validation izizToast ends
+
+</script>

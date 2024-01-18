@@ -1,0 +1,560 @@
+﻿@model UserCartDetails
+
+@{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/clientfiles/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/clientfiles/lib/owlcarousel/assets/owl.carousel.css" rel="stylesheet">
+    <link href="/clientfiles/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/clientfiles/css/style.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js" **important**=""></script>
+
+    <style id="inert-style">
+        [inert] {
+            pointer-events: none;
+            cursor: default;
+        }
+
+            [inert], [inert] * {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+    </style>
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        @*@Html.RenderAction("GetCartCounter");*@
+        
+
+
+        <div class="row bg-secondary py-2 px-xl-5">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark" href="">FAQs</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Help</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Support</a>
+                    <span class="text-muted px-2">|</span>
+
+                    <a class="text-dark" href="">Hi @Model.aspUsersTable.UserName</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-dark pl-2" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="~/User/Index" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+@*                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for products">
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-primary">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </form>*@
+            </div>
+            <div class="col-lg-3 col-6 text-right">
+                <a href="" class="btn border">
+                    <i class="fas fa-heart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+                <a href="" class="btn border">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+                    <span class="badge">
+                        @Model.productTable.Count()
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+    <!-- Navbar Start -->
+    <span id="UserCartList">
+        <div class="container-fluid mb-5" >
+            <div class="container-fluid pt-5">
+                <div class="row px-xl-5">
+                    <div class="col-lg-8 table-responsive mb-5">
+                        <table class="table table-bordered text-center mb-0">
+                            <thead class="bg-secondary text-dark">
+                                <tr>
+                                    <th>Products</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody class="align-middle">
+                                @*                              @products.aspUsersTable.Id;
+                                @products.aspUsersTable.Address
+                                @products.aspUsersTable.Country*@
+
+                                @foreach (var product in @Model.productTable)
+                                {
+                                    <tr>
+                                        <td class="align-middle"><img src="/ImagesFolder/@product.MainImage" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
+                                        <td class="align-middle">Rs @product.Price</td>
+                                        <td class="align-middle">
+                                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-sm btn-primary btn-minus" id="minus" onclick="Sum('minus', '@product.ProductId', 'ProductTotalPrize', '@product.Price')">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <input type="text" class="form-control form-control-sm bg-secondary text-center quantity" id="@product.ProductId" value="@product.Quantity">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-sm btn-primary btn-plus" id="plus" onclick="Sum('plus', '@product.ProductId', 'ProductTotalPrize', '@product.Price')">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        @{
+                                            var itemPrice = int.Parse(product.Price) * int.Parse(product.Quantity);
+                                        }
+                                        <td class="align-middle" id="ProductTotalPrize'@product.ProductId'" data-price="@itemPrice">Rs @itemPrice</td>
+                                        <td class="align-middle">
+                                            <a asp-controller="User" asp-action="DeleteProduct" asp-route-UserCartTableId="@product.UserCartTableId">
+                                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <form class="mb-5" action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary">Apply Coupon</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="card border-secondary mb-5">
+                            <div class="card-header bg-secondary border-0">
+                                <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                            </div>
+                            @*                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium">$150</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">$10</h6>
+                            </div>
+                            </div>*@
+                            <div class="card-footer border-secondary bg-transparent">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <h5 class="font-weight-bold">Total</h5>
+                                    <h5 class="font-weight-bold" id="CartTotal">Rs 0</h5>
+                                </div>
+                                <button class="btn btn-block btn-primary my-3 py-3" onclick="checkOutAjax()">Proceed To Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </span>
+    <!-- Navbar End -->
+    <!-- Featured Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid offer pt-5">
+        <div class="row px-xl-5">
+            <div class="col-md-6 pb-4">
+                <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
+                    <img src="" alt="">
+                    <div class="position-relative" style="z-index: 1;">
+                        <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
+                        <h1 class="mb-4 font-weight-semi-bold">Spring Collection</h1>
+                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pb-4">
+                <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
+                    <img src="" alt="">
+                    <div class="position-relative" style="z-index: 1;">
+                        <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
+                        <h1 class="mb-4 font-weight-semi-bold">Winter Collection</h1>
+                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-5 px-xl-5">
+            <div class="col-md-6 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
+                    <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum eirmod duo labore labore.</p>
+                </div>
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-4">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel vendor-carousel owl-loaded owl-drag">
+
+
+
+
+
+
+
+
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage" style="transform: translate3d(-2844px, 0px, 0px); transition: all 1s ease 0s; width: 4740px;">
+                            <div class="owl-item cloned" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-3.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-4.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-5.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-6.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-7.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-8.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-1.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-2.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-3.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-4.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-5.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-6.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item active" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-7.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item active" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-8.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned active" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-1.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned active" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-2.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned active" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-3.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned active" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-4.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-5.jpg" alt="">
+                                </div>
+                            </div><div class="owl-item cloned" style="width: 208px; margin-right: 29px;">
+                                <div class="vendor-item border p-4">
+                                    <img src="/clientfiles/img/vendor-6.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div><div class="owl-nav disabled"><div class="owl-prev">prev</div><div class="owl-next">next</div></div><div class="owl-dots"><div class="owl-dot"><span></span></div><div class="owl-dot active"><span></span></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <a href="" class="text-decoration-none">
+                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
+                </a>
+                <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
+                        <form action="">
+                            <div class="form-group">
+                                <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control border-0 py-4" placeholder="Your Email" required="required">
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top border-light mx-xl-5 py-4">
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-dark">
+                    © <a class="text-dark font-weight-semi-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed
+                    by
+                    <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">HTML Codex</a><br>
+                    Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                </p>
+            </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+                <img class="img-fluid" src="/clientfiles/img/payments.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top" style="display: none;"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/clientfiles/lib/easing/easing.min.js"></script>
+    <script src="/clientfiles/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="/clientfiles/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/clientfiles/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/clientfiles/js/main.js"></script>
+
+    <!-- Visual Studio Browser Link -->
+    <script type="text/javascript" src="/_vs/browserLink" async="async" id="__browserLink_initializationData" data-requestid="a7f493c9a4114a799030dac71ebac617" data-requestmappingfromserver="false" data-connecturl="http://localhost:57105/0ea49ae22ca7414c8209b2d6e74988a7/browserLink"></script>
+    <!-- End Browser Link -->
+
+    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+
+    <live-preview-root></live-preview-root>
+
+    <script>
+        function calculatePrice(){
+            let totalPrize = 0, i = 0;
+
+            const productElements = document.querySelectorAll('[id^="ProductTotalPrize"]')
+            productElements.forEach((element) => {
+                const price = parseFloat(element.getAttribute('data-price'));
+                totalPrize += price;
+               i++;
+            });
+            document.getElementById("CartTotal").innerHTML = "Rs " + totalPrize;
+        }
+
+        window.onload = function () {
+            calculatePrice();
+        };
+
+        function Sum(action, productId, findId, initialprize)
+        {
+            var totalprizedata = findId + "'" + productId + "'";
+            var element = document.getElementById(totalprizedata);
+            var ItemTotalPrice = element.getAttribute("data-price");
+
+            var currentQuantity = parseInt(document.getElementById(productId).value);
+
+            if(action === 'plus')
+            {
+                document.getElementById(productId).value = currentQuantity + 1; // increment quantity
+                        var newtotalprize = parseInt(ItemTotalPrice) + parseInt(initialprize);
+                element.setAttribute("data-price", newtotalprize);
+                document.getElementById(totalprizedata).innerHTML = "Rs " + newtotalprize
+
+            }
+            else if(action === 'minus')
+            {
+                if(currentQuantity > 1)
+                {
+                    document.getElementById(productId).value = currentQuantity - 1;
+                            var newtotalprize = parseInt(ItemTotalPrice) - parseInt(initialprize);
+                    element.setAttribute("data-price", newtotalprize);
+                    document.getElementById(totalprizedata).innerHTML = "Rs " + newtotalprize
+                }
+            }
+            // update quantity in database starts
+            $.ajax({
+                url: '/User/ProductQuantity?ProductId=' + productId + '&Quantity='+ document.getElementById(productId).value,
+                type: "GET",
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert("Updated Quantity in Database");
+                    //$("#partialModal").find(".modal-body").html(response);
+                    //$("#partialModal").modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+            // update quantity in database ends
+            calculatePrice()
+        }
+
+        function checkOutAjax()
+        {
+            fetch('/User/Checkout', {
+                method: "GET",
+                header : {
+                    "Content-Type": "application/json"
+                }
+            }).then(response => response.text())
+            .then(response => {
+                $("#UserCartList").empty();
+                document.getElementById("UserCartList").innerHTML = response;
+
+                }).catch(error => console.error(error));
+        }
+
+    </script>
+
+</body>
+</html>

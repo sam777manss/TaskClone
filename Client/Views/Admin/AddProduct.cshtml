@@ -1,0 +1,394 @@
+﻿@using System.Security.Claims
+
+<!-- below three are datatable.net require link this are suffient to create datatable -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js" **important**></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" **important**></script>
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" **important** />
+<!-- datatable.net required link ends -->
+
+
+<!-- Content wrapper -->
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <form id="AddProductForm" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <h5 class="card-header">Product Details</h5>
+                    <!-- Account -->
+                    <div class="card-body">
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <img src=""
+                                 alt="user-avatar"
+                                 class="d-block rounded"
+                                 height="100"
+                                 width="100"
+                                 id="uploadedAvatar" />
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                    <span class="d-none d-sm-block">Upload new photo</span>
+                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                    <input type="file"
+                                           id="upload"
+                                           class="account-file-input"
+                                           name="Files"
+                                           hidden
+                                               accept="image/png, image/jpeg" multiple />
+                                </label>
+                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                    <i class="bx bx-reset d-block d-sm-none"></i>
+                                    <span class="d-none d-sm-block">Reset</span>
+                                </button>
+
+                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-0" />
+                    <div class="card-body">
+                        <!--
+                            ProductName = "Dell XPS 13",
+                            ProductDescription = "Ultra-slim and lightweight laptop",
+                            ProductType = "Electronics",
+                            ProductCategory = "Computers",
+                            ProductCategoryDescription = "Personal computers",
+                            ProductCategoryType = "Laptops",
+                            ProductCategoryName = "Ultrabooks"
+                        -->
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="firstName" class="form-label">Product Name</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           id="ProductName"
+                                           name="ProductName"
+                                           value="John"
+                                           autofocus />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="ProductDescription" class="form-label">Product Description</label>
+                                    <div class="input-group input-group-merge speech-to-text">
+                                        <input type="text" class="form-control" placeholder="Say it" id="ProductDescription" name="ProductDescription" aria-describedby="text-to-speech-addon">
+                                        <span class="input-group-text" id="text-to-speech-addon">
+                                            <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="email" class="form-label">Saller E-mail</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           id="Email"
+                                           name="VendorEmail"
+                                           value=""
+                                           placeholder="john.doe@example.com" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="ProductType">Product Type</label>
+                                    <select id="ProductType" class="select2 form-select" name="ProductType">
+                                        <option value="">Select</option>
+                                        @*<option value="electronics">Electronics</option>*@
+                                        <option value="clothing">Clothing</option>
+@*                                        <option value="books">Books</option>
+                                        <option value="furnitures">Furnitures</option>*@
+                                        <option value="accessories">Accessories</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="ProductCategory">Product Category</label>
+                                    <select id="ProductCategory" class="select2 form-select" name="ProductCategory" disabled>
+                                        @*<option value="">Select Category</option>*@
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="ProductCategoryType">Product Category Type</label>
+                                    <select id="ProductCategoryType" class="select2 form-select" name="ProductCategoryType" disabled>
+                                        @*<option value="">Select Product Category Type</option>*@
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="ProductCategoryDescription">Product Category Description</label>
+                                    <select id="ProductCategoryDescription" class="select2 form-select" name="ProductCategoryDescription" disabled>
+                                        @*<option value="">Select Product Category Description</option>*@
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="Price" class="form-label">Selling Price Rs</label>
+                                    <input type="text" class="form-control" id="Price" name="Price" placeholder="Selling Price Rs">
+                                </div>
+                            </div>
+
+                                <div class="row gy-3">
+                                    <div class="col-md">
+                                        <medium class="text-light fw-semibold d-block">Sizes</medium>
+
+                                        <div class="form-check form-check-inline mt-3">
+                                            <input class="form-check-input" type="checkbox" name="Small" id="Small"  value="true">
+                                            <label class="form-check-label" for="inlineCheckbox1">S</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="Medium" id="Medium" value="true">
+                                            <label class="form-check-label" for="inlineCheckbox2">M</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="Large" id="Large" value="true">
+                                            <label class="form-check-label" for="inlineCheckbox2">L</label>
+                                        </div><div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="Xl" id="inlineCheckbox2" value="true">
+                                            <label class="form-check-label" for="inlineCheckbox2">XL</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="XXl" id="inlineCheckbox2" value="true">
+                                            <label class="form-check-label" for="inlineCheckbox2">XXL</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="" disabled="">
+                                            <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-primary me-2" onclick="AddProduct()">Save changes</button>
+                                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                            </div>
+                    </div>
+                    <!-- /Account -->
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <!-- / Content -->
+
+    <div class="content-backdrop fade"></div>
+</div>
+<!-- Content wrapper -->
+
+<script>
+    // Image show in upload id starts here
+    document.getElementById('upload').addEventListener('change', function (event) {
+        var selectedFiles = event.target.files;
+
+        if (selectedFiles.length > 0) {
+            var firstImage = selectedFiles[0];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById('uploadedAvatar').src = e.target.result;
+            };
+
+            reader.readAsDataURL(firstImage);
+        }
+    });
+    // Image show in upload id ends here
+    try
+    {
+        function AddProduct() {
+            // Prevent the default form submission
+            event.preventDefault();
+            var msg = "";
+            // check if product image is uploaded or not
+            if (document.getElementById('upload').files.length == 0)
+            {
+                msg = "Uplaod Image";
+            }
+            else if (document.getElementById("Email").value == "")
+            {
+                msg = "Enter Email";
+            }
+            else if (document.getElementById("ProductType").value == "")
+            {
+                msg = "Enter Product Type";
+            }
+            else if (document.getElementById("ProductCategory").value == "") {
+                msg = "Enter Product Category";
+            }
+            else if (document.getElementById("ProductCategoryType").value == "") {
+                msg = "Enter Product Category Type";
+            }
+            else if (document.getElementById("ProductCategoryDescription").value == "") {
+                msg = "Enter Product Category Description";
+            }
+            else if (document.getElementById("Price").value == "") {
+                msg = "Enter Selling Price Rs";
+            }
+            if(msg !== "")
+            {
+                iziToast.show({
+                    theme: 'dark',
+                    icon: 'icon-person',
+                    title: 'Hey',
+                    message: "Please "+ msg,
+                    position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
+                    progressBarColor: 'rgb(0, 255, 184)',
+                });
+            }
+
+            else
+            {
+                // Get the form element
+                var form = document.getElementById('AddProductForm');
+
+                // Create a new FormData object
+                var formData = new FormData(form);    // Make an Ajax request
+                $.ajax({
+                    url: '/Admin/AddProduct',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        // Handle the success response
+                        console.log(response);
+                        iziToast.success({
+                            title: 'OK',
+                            message: "Added New Product",
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle the error response
+                        console.error(error);
+                        iziToast.error({
+                            title: 'Error',
+                            message: error,
+                        });
+                    }
+                });
+            }
+            
+        }
+    }
+    catch (err)
+    {
+        console.log(err.message);
+    }
+
+
+    // Define the category and subcategory options
+    var subcategories = {
+        electronics: ["Computers", "Smartphones", "Cameras"],
+        clothing: ["Men's Clothing", "Women's Clothing", "Kids' Clothing"],
+        accessories: ["Men", "Women", "Kid"],
+        books: ["Fiction", "Non-Fiction", "Science Fiction"]
+    };
+
+    // Handle category dropdown change event
+    $("#ProductType").change(function () {
+        
+        var selectedCategory = $(this).val();
+        var $ProductCategory = $("#ProductCategory");
+
+        // Clear existing subcategory options
+        $ProductCategory.empty();
+        $("#ProductCategoryType").empty();
+        $("#ProductCategoryDescription").empty();
+
+        // Disable subcategory dropdown if no category is selected
+        if (selectedCategory === "") {
+            $ProductCategory.prop("disabled", true);
+            $("#ProductCategoryType").prop("disabled", true);
+            $("#ProductCategoryDescription").prop("disabled", true);
+            return;
+        }
+
+        // Populate subcategory dropdown with options based on the selected category
+        var categorySubcategories = subcategories[selectedCategory];
+
+        $ProductCategory.append($("<option>").val("").text(" Select Category "))
+
+        for (var i = 0; i < categorySubcategories.length; i++) {
+            var option = $("<option>").val(categorySubcategories[i]).text(categorySubcategories[i]);
+            $ProductCategory.append(option);
+        }
+
+        // Enable and show subcategory dropdown
+        $ProductCategory.prop("disabled", false);
+    });
+    //<!------------------------------------------------------------------------------------!>
+
+    // Define the category and subcategory options
+    var ProductCategoryTypeData = {
+        //Computers: ["Laptop", "Desktop", "Server"],
+        //Smartphones: ["Camera", "Budget", "Premium"],
+        //Cameras: ["Budget", "Professional"],
+        "Men's Clothing": ["Formal", "Casual", "Sports"],
+        "Women's Clothing": ["Formal", "Casual", "Sports"],
+        "Kids' Clothing": ["Formal", "Casual", "Sports"],
+        "Men": ["Blazers", "Jackets", "Shoes"],
+        "Women": ["Blazers", "Jackets", "Shoes"],
+        "Kid": ["Blazers", "Jackets", "Shoes"],
+    };
+    $("#ProductCategory").change(function () {
+        var selectedProductCategory = $(this).val();
+        var $ProductCategoryType = $("#ProductCategoryType");
+        // clear existing ProductCategoryDescription drop down options
+        $ProductCategoryType.empty();
+
+        // Disable ProductCategoryDescription if no ProductCategory is selected
+        if (selectedProductCategory === "") {
+            $ProductCategoryType.prop("disabled", true);
+            return;
+        }
+        // Populate subcategory dropdown with options based on the selected category
+        var ProductCategoryValue = ProductCategoryTypeData[selectedProductCategory];
+
+        $ProductCategoryType.append($("<option>").val("").text(" Select Category "))
+
+        for (var i = 0; i < ProductCategoryValue.length; i++) {
+            var option = $("<option>").val(ProductCategoryValue[i]).text(ProductCategoryValue[i]);
+            $ProductCategoryType.append(option);
+        }
+
+        // Enable and show subcategory dropdown
+        $ProductCategoryType.prop("disabled", false);
+
+    });
+    // <! ------------------------------------------------------------------------------------------ !>
+    // Define the category and subcategory options
+    var ProductCategoryDescriptionData = {
+        Laptop: ["Gaming", "Office", "2-in-1", "Student"],
+        Desktop: ["Gaming", "Multitasking", "Budget"],
+        Server: ["Budget", "Professional"],
+        Formal : ["Shirts", "Pants", "Shoes", "Jeans"],
+        Casual: ["Shirts", "Pants", "Shoes", "Jeans"],
+        Sports: ["Shirts", "Pants", "Shoes", "Jeans"],
+        Swimwear: ["Swimwear"],
+        Sleepwear: ["Sleepwear"],
+        Sportswear: ["Sportswear"],
+        Blazers: ["Blazers"],
+        Jackets: ["Jackets"],
+        Shoes: ["Shoes"],
+
+    };
+    $("#ProductCategoryType").change(function () {
+        
+        var selectedProductCategoryType = $(this).val();
+        var $ProductCategoryDescription = $("#ProductCategoryDescription");
+        // clear existing ProductCategoryDescription drop down options
+        $ProductCategoryDescription.empty();
+
+        // Disable ProductCategoryDescription if no ProductCategory is selected
+        if (selectedProductCategoryType === "") {
+            $ProductCategoryDescription.prop("disabled", true);
+            return;
+        }
+        // Populate subcategory dropdown with options based on the selected category
+        var ProductCategoryDescriptionValue = ProductCategoryDescriptionData[selectedProductCategoryType];
+
+        $ProductCategoryDescription.append($("<option>").val("").text(" Select Category "))
+        for (var i = 0; i < ProductCategoryDescriptionValue.length; i++) {
+            var option = $("<option>").val(ProductCategoryDescriptionValue[i]).text(ProductCategoryDescriptionValue[i]);
+            $ProductCategoryDescription.append(option);
+        }
+
+        // Enable and show subcategory dropdown
+        $ProductCategoryDescription.prop("disabled", false);
+
+    });
+</script>
